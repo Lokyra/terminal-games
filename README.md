@@ -1,1 +1,1 @@
-# terminal-games-go
+# terminal-games
