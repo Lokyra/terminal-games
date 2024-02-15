@@ -64,7 +64,7 @@ func displayBoard(board [3][3]string) {
 	fmt.Printf(" %s  | %s  | %s ", board[2][0], board[2][1], board[2][2])
 }
 
-func checkHumanWin(board [3][3]string) bool {
+func horizontalWin(board [3][3]string) bool {
 	if board[0][0] == "X" && board[0][0] == board[0][1] && board[0][1] == board[0][2] {
 		fmt.Println("\nHuman Won !")
 		return false
@@ -77,6 +77,26 @@ func checkHumanWin(board [3][3]string) bool {
 		fmt.Println("\nHuman Won !")
 		return false
 	}
+	return true
+}
+
+func verticalWin(board [3][3]string) bool {
+	if board[0][0] == "X" && board[0][0] == board[1][0] && board[1][0] == board[2][0] {
+		fmt.Println("\nHuman Won !")
+		return false
+	}
+	if board[0][1] == "X" && board[0][1] == board[1][1] && board[1][1] == board[2][1] {
+		fmt.Println("\nHuman Won !")
+		return false
+	}
+	if board[0][2] == "X" && board[0][2] == board[1][2] && board[1][2] == board[2][2] {
+		fmt.Println("\nHuman Won !")
+		return false
+	}
+	return true
+}
+
+func diagonalWin(board [3][3]string) bool {
 	if board[0][0] == "X" && board[0][0] == board[1][1] && board[1][1] == board[2][2] {
 		fmt.Println("\nHuman Won !")
 		return false
@@ -87,6 +107,25 @@ func checkHumanWin(board [3][3]string) bool {
 	}
 	return true
 }
+
+/*
+func checkHumanWin(board [3][3]string) bool {
+	run := true
+	run = horizontalWin(board)
+	if run == false {
+		return run
+	}
+	run = diagonalWin(board)
+	if run == false {
+		return run
+	}
+	run = diagonalWin(board)
+	if run == false {
+		return run
+	}
+	return run
+}
+*/
 
 func main() {
 	fmt.Println("Welcome to The Tic-Tac-Toe game !")
@@ -119,7 +158,7 @@ func main() {
 
 		fmt.Println()
 		fmt.Println()
-		run = checkHumanWin(board)
+		run = verticalWin(board)
 		if run == false {
 			return
 		}
