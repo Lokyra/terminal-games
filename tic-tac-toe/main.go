@@ -25,16 +25,18 @@ func printMatix(matrix [3][3]int) {
 	}
 }
 
-func askNumber() {
-	var run bool = true
-	var n string = " "
-	for run {
-		fmt.Print("Enter a value : ")
-		fmt.Scan(&n)
-		if n == "O" {
-			run = false
-		}
-	}
+func askSymbol() (int, int) {
+	var x, y int
+	fmt.Print("\nRow : ")
+	fmt.Scan(&x)
+	fmt.Print("\nColumn : ")
+	fmt.Scan(&y)
+	return x, y
+}
+
+func changeBoard(board [3][3]string, x int, y int) [3][3]string {
+	board[x][y] = "X"
+	return board
 }
 
 func displayBoard(board [3][3]string) {
@@ -48,6 +50,7 @@ func displayBoard(board [3][3]string) {
 func main() {
 	fmt.Println("Welcome to The Tic-Tac-Toe game !")
 	fmt.Println()
+	var x, y int
 	board := [3][3]string{
 		{" ", " ", " "},
 
@@ -56,6 +59,9 @@ func main() {
 		{" ", " ", " "},
 	}
 
+	displayBoard(board)
+	x, y = askSymbol()
+	board = changeBoard(board, x, y)
 	displayBoard(board)
 
 	// askNumber()
