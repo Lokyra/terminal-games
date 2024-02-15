@@ -64,23 +64,35 @@ func displayBoard(board [3][3]string) {
 	fmt.Printf(" %s  | %s  | %s ", board[2][0], board[2][1], board[2][2])
 }
 
-func horizontalWin(board [3][3]string) bool {
-	if board[0][0] == board[0][1] && board[0][1] == board[0][2] {
-		return true
+func checkHumanWin(board [3][3]string) bool {
+	if board[0][0] == "X" && board[0][0] == board[0][1] && board[0][1] == board[0][2] {
+		fmt.Println("\nHuman Won !")
+		return false
 	}
-	if board[1][0] == board[1][1] && board[1][1] == board[1][2] {
-		return true
+	if board[1][0] == "X" && board[1][0] == board[1][1] && board[1][1] == board[1][2] {
+		fmt.Println("\nHuman Won !")
+		return false
 	}
-	if board[2][0] == board[2][1] && board[2][1] == board[2][2] {
-		return true
+	if board[2][0] == "X" && board[2][0] == board[2][1] && board[2][1] == board[2][2] {
+		fmt.Println("\nHuman Won !")
+		return false
 	}
-	return false
+	if board[0][0] == "X" && board[0][0] == board[1][1] && board[1][1] == board[2][2] {
+		fmt.Println("\nHuman Won !")
+		return false
+	}
+	if board[0][2] == "X" && board[0][2] == board[1][1] && board[1][1] == board[2][0] {
+		fmt.Println("\nHuman Won !")
+		return false
+	}
+	return true
 }
 
 func main() {
 	fmt.Println("Welcome to The Tic-Tac-Toe game !")
 	fmt.Println()
 	var x, y int
+	var run bool = true
 	board := [3][3]string{
 		{" ", " ", " "},
 
@@ -89,17 +101,27 @@ func main() {
 		{" ", " ", " "},
 	}
 
-	fmt.Println("Human turn : ")
-	displayBoard(board)
-	x, y = getPosition()
-	board = changeBoard(board, x, y, 1)
-	displayBoard(board)
+	for {
 
-	fmt.Println()
-	fmt.Println()
+		fmt.Println("\nHuman turn : ")
+		displayBoard(board)
+		x, y = getPosition()
+		board = changeBoard(board, x, y, 1)
+		displayBoard(board)
 
-	fmt.Println("Machine turn : ")
-	x, y = getAiPosition(board)
-	board = changeBoard(board, x, y, 0)
-	displayBoard(board)
+		fmt.Println()
+		fmt.Println()
+
+		fmt.Println("\nMachine turn : ")
+		x, y = getAiPosition(board)
+		board = changeBoard(board, x, y, 0)
+		displayBoard(board)
+
+		fmt.Println()
+		fmt.Println()
+		run = checkHumanWin(board)
+		if run == false {
+			return
+		}
+	}
 }
