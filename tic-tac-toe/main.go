@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
 func welcome() {
@@ -25,7 +26,7 @@ func printMatix(matrix [3][3]int) {
 	}
 }
 
-func askSymbol() (int, int) {
+func getPosition() (int, int) {
 	var x, y int
 	fmt.Print("\nRow : ")
 	fmt.Scan(&x)
@@ -34,8 +35,24 @@ func askSymbol() (int, int) {
 	return x, y
 }
 
-func changeBoard(board [3][3]string, x int, y int) [3][3]string {
-	board[x][y] = "X"
+func getAiPosition(board [3][3]string) (int, int) {
+	var x, y int
+
+	for {
+		x = rand.Intn(3)
+		y = rand.Intn(3)
+		if board[x][y] == " " {
+			return x, y
+		}
+	}
+}
+
+func changeBoard(board [3][3]string, x int, y int, n int) [3][3]string {
+	if n == 1 {
+		board[x][y] = "X"
+	} else {
+		board[x][y] = "O"
+	}
 	return board
 }
 
@@ -59,12 +76,17 @@ func main() {
 		{" ", " ", " "},
 	}
 
+	fmt.Println("Human turn : ")
 	displayBoard(board)
-	x, y = askSymbol()
-	board = changeBoard(board, x, y)
+	x, y = getPosition()
+	board = changeBoard(board, x, y, 1)
 	displayBoard(board)
 
-	// askNumber()
-	//	var numbers [10]int
-	// var matrix [3][3]int
+	fmt.Println()
+	fmt.Println()
+
+	fmt.Println("Machine turn : ")
+	x, y = getAiPosition(board)
+	board = changeBoard(board, x, y, 0)
+	displayBoard(board)
 }
