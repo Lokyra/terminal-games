@@ -162,5 +162,9 @@ func main() {
 		if run == false {
 			return
 		}
+		run = horizontalWin(board)
+		if run == false {
+			return
+		}
 	}
 }
