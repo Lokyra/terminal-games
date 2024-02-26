@@ -166,5 +166,9 @@ func main() {
 		if run == false {
 			return
 		}
+		run = diagonalWin(board)
+		if run == false {
+			return
+		}
 	}
 }
